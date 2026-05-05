@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login Section -->
+  <div id="loginSection" class="login-page">
+    <div class="login-box">
+     
+      <h1>University Portal</h1>
+      <p class="hint">Sign in to manage students, courses, announcements, and the weekly schedule.</p>
+
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button class="btn btn-primary full" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="appSection" class="app hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h2>University Portal</h2>
+        <span>Admin dashboard</span>
+      </div>
+
+      <button class="nav-btn active" data-page="dashboardPage">Dashboard</button>
+      <button class="nav-btn" data-page="studentsPage">Students</button>
+      <button class="nav-btn" data-page="coursesPage">Courses</button>
+      <button class="nav-btn" data-page="announcementsPage">Announcements</button>
+      <button class="nav-btn" data-page="schedulePage">Schedule</button>
+      <button id="logoutBtn">Logout</button>
+    </aside>
+
+    <main>
+      <!-- Dashboard Page -->
+      <section id="dashboardPage" class="page active">
+        <div class="top-bar">
+          <div>
+            <h1 class="title">Dashboard</h1>
+            <p class="subtitle">Quick overview of the current university records.</p>
+          </div>
+
+          <div class="header-actions">
+            <button class="btn btn-success" id="seedDataBtn">Load sample data</button>
+            <div class="admin-pill">Admin</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="stat-box">
+            <p>Total Students</p>
+            <h3 id="studentsCount">0</h3>
+          </div>
+
+          <div class="stat-box">
+            <p>Total Courses</p>
+            <h3 id="coursesCount">0</h3>
+          </div>
+
+          <div class="stat-box">
+            <p>Total Announcements</p>
+            <h3 id="announcementsCount">0</h3>
+          </div>
+        </div>
+
+        <div class="panel-grid">
+          <div class="card">
+            <div class="panel-title">
+              <h3>Recent Students</h3>
+              <a class="view-link" href="#" onclick="showPage('studentsPage')">View all</a>
+            </div>
+            <div class="preview-list">
+              <div class="preview-item"><strong>Ali Hassan</strong>ID: 2021001 - Computer Science</div>
+              <div class="preview-item"><strong>Mona Adel</strong>ID: 2021002 - Information Systems</div>
+              <div class="preview-item"><strong>Omar Khaled</strong>ID: 2021003 - Information Technology</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="panel-title">
+              <h3>Active Courses</h3>
+              <a class="view-link" href="#" onclick="showPage('coursesPage')">View all</a>
+            </div>
+            <div class="preview-list">
+              <div class="preview-item"><strong>JavaScript</strong>Dr. Ahmed - 3 credit hours</div>
+              <div class="preview-item"><strong>Database Systems</strong>Dr. Sara - 2 credit hours</div>
+              <div class="preview-item"><strong>Data Structures</strong>Dr. Hany - 3 credit hours</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="panel-title">
+              <h3>Announcements</h3>
+              <a class="view-link" href="#" onclick="showPage('announcementsPage')">View all</a>
+            </div>
+            <div class="preview-list">
+              <div class="preview-item"><strong>Midterm Exam</strong>Schedule will be shared this week.</div>
+              <div class="preview-item"><strong>Project Submission</strong>Deadline is Thursday.</div>
+              <div class="preview-item"><strong>Guest Lecture</strong>Career session tomorrow at 4 PM.</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="panel-title">
+              <h3>Today Schedule</h3>
+              <a class="view-link" href="#" onclick="showPage('schedulePage')">View full</a>
+            </div>
+            <div class="preview-list">
+              <div class="preview-item"><strong>09:00</strong>Data Structures - Room A101</div>
+              <div class="preview-item"><strong>11:00</strong>Business Management - Room B205</div>
+              <div class="preview-item"><strong>14:00</strong>Thermodynamics - Room C303</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Students Page -->
+      <section id="studentsPage" class="page">
+        <h1 class="section-title">Students</h1>
+
+        <div class="card">
+          <form id="studentForm">
+            <input type="hidden" id="studentIndex">
+            <input type="text" id="studentName" placeholder="Student name" required>
+            <input type="number" id="studentAge" placeholder="Age" required>
+            <input type="text" id="studentDepartment" placeholder="Department" required>
+            <input type="number" id="studentGrade" placeholder="Grade" required>
+            <button class="btn btn-primary" type="submit">Save student</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <input type="text" id="studentSearch" placeholder="Search by student name">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Department</th>
+                <th>Grade</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Courses Page -->
+      <section id="coursesPage" class="page">
+        <h1 class="section-title">Courses</h1>
+
+        <div class="card">
+          <form id="courseForm">
+            <input type="hidden" id="courseIndex">
+            <input type="text" id="courseName" placeholder="Course name" required>
+            <input type="text" id="courseInstructor" placeholder="Instructor name" required>
+            <input type="number" id="courseHours" placeholder="Credit hours" required>
+            <button class="btn btn-primary" type="submit">Save course</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Instructor</th>
+                <th>Hours</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="coursesTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Announcements Page -->
+      <section id="announcementsPage" class="page">
+        <h1 class="section-title">Announcements</h1>
+
+        <div class="card">
+          <form id="announcementForm">
+            <input type="hidden" id="announcementIndex">
+            <input type="text" id="announcementTitle" placeholder="Announcement title" required>
+            <textarea id="announcementContent" class="full" placeholder="Announcement details" required></textarea>
+            <button class="btn btn-primary" type="submit">Save announcement</button>
+          </form>
+        </div>
+
+        <div class="card" id="announcementsList"></div>
+      </section>
+
+      <!-- Schedule Page -->
+      <section id="schedulePage" class="page">
+        <h1 class="section-title">Weekly Schedule</h1>
+
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>8 - 10</th>
+                <th>10 - 12</th>
+                <th>12 - 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sunday</td>
+                <td>Math</td>
+                <td>Programming</td>
+                <td>Physics</td>
+              </tr>
+              <tr>
+                <td>Monday</td>
+                <td>Databases</td>
+                <td>Networks</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Tuesday</td>
+                <td>Algorithms</td>
+                <td>Web</td>
+                <td>Machine Learning</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
